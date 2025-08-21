@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.proyecto.gestionLibros.enums.Estados_Libro;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -55,6 +59,10 @@ public class Libro implements Serializable{
 	
 	@Column(columnDefinition = "TEXT", name="descripcion")
 	private String descripcion;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="estado")
+	private Estados_Libro estado;
 	
 	@OneToMany(mappedBy = "libro", cascade=CascadeType.ALL)
 	private List<VentaDetalle> detalles = new ArrayList<>();
