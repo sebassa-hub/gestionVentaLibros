@@ -1,6 +1,7 @@
 package com.proyecto.gestionLibros.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +52,8 @@ public class Libro implements Serializable{
 	@JoinColumn(name="id_categoria")
 	private Categoria categoria;
 	
-	@Column(nullable = false,name="precio")
-	private double precio;
+	@Column(nullable = false, precision=10, scale=2,name="precio")
+	private BigDecimal precio;
 	
 	@Column(nullable = false,name="stock")
 	private int stock;
