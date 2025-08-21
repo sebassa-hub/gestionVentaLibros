@@ -13,7 +13,6 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	
 	public List<Cliente> listarTodos(){
 		return clienteRepository.findAll();
 	}
@@ -22,14 +21,13 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 	
-	
 	public Cliente obtenerPorId(Long id) {
 		return clienteRepository.findById(id).orElse(null);
 	}
 	
-	
 	public void eliminar(Long id) {
 		clienteRepository.deleteById(id);
 	}
+	
 	
 }
