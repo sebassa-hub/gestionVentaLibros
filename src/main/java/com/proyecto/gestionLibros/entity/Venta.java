@@ -1,6 +1,7 @@
 package com.proyecto.gestionLibros.entity;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,48 +16,47 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Getter
-@Setter
-@Table(name="libro")
-public class Libro implements Serializable{
+@Table(name = "Ventas")
+public class Venta {
 
-	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(name = "id_Venta")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_libro;
-	
-	@Column(nullable = false,length = 255,name="titulo")
-	private String titulo;
-	
-	@Column(nullable = false,length = 150,name="autor")
-	private String autor;
+	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name="id_editorial")
-	private Editorial editorial;
+	@JoinColumn(name = "id_Cliente", nullable = false)
+	private Cliente cliente;
 	
-	@ManyToOne
-	@JoinColumn(name="id_categoria")
-	private Categoria categoria;
 	
-	@Column(nullable = false,name="precio")
-	private double precio;
+	@Column(name = "fecha_Venta", nullable=false)
+	private LocalDateTime fechaVenta;
 	
-	@Column(nullable = false,name="stock")
-	private int stock;
 	
-	@Column(columnDefinition = "TEXT", name="descripcion")
-	private String descripcion;
+	@Column(name="subtotal")
+	private BigDecimal subtotal;
 	
-	@OneToMany(mappedBy = "libro", cascade=CascadeType.ALL)
+	@Column(name="igv")
+	private BigDecimal igv;
+	
+	@Column(name="total")
+	private BigDecimal total;
+	
+	
+	//Relacion con DetalleVenta
+	@OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
 	private List<VentaDetalle> detalles = new ArrayList<>();
 	
 }
