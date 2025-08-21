@@ -1,4 +1,4 @@
-package com.proyecto.gestionLibros.service;
+package com.proyecto.gestionLibros.Service;
 
 import com.proyecto.gestionLibros.entity.Cliente;
 import com.proyecto.gestionLibros.repository.ClienteRepository;

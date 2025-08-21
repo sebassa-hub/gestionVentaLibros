@@ -1,4 +1,4 @@
-package com.proyecto.gestionLibros.service;
+package com.proyecto.gestionLibros.Service;
 
 import org.springframework.stereotype.Service;
 
