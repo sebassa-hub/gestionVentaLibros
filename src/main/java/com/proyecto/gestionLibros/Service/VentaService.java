@@ -12,6 +12,7 @@ import com.proyecto.gestionLibros.entity.Cliente;
 import com.proyecto.gestionLibros.entity.Libro;
 import com.proyecto.gestionLibros.entity.Venta;
 import com.proyecto.gestionLibros.entity.VentaDetalle;
+import com.proyecto.gestionLibros.enums.Estados_Libro;
 import com.proyecto.gestionLibros.repository.ClienteRepository;
 import com.proyecto.gestionLibros.repository.LibroRepository;
 import com.proyecto.gestionLibros.repository.VentaDetalleRepository;
@@ -19,8 +20,8 @@ import com.proyecto.gestionLibros.repository.VentaRepository;
 
 @Service
 public class VentaService {
-
-	@Autowired
+	
+	@Autowired	
 	private VentaRepository ventaRepository;
 	
 	@Autowired
@@ -55,9 +56,11 @@ public class VentaService {
 	
 	public Venta comprar(VentaRequest request) {
 
+		// Buscar cliente
 	    Cliente cliente = clienteRepository.findById(request.getClienteId())
-	            .orElseThrow(() -> new RuntimeException("Cliente No Encontrado"));
+	            .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
+	    // Crear la venta principal
 	    Venta venta = new Venta();
 	    venta.setCliente(cliente);
 	    venta.setFechaVenta(LocalDateTime.now());
@@ -66,13 +69,21 @@ public class VentaService {
 	    BigDecimal subtotal = BigDecimal.ZERO;
 
 	    for (VentaRequest.LibroCompra libroCompra : request.getLibros()) {
+	        // Buscar libro por ID
 	        Libro libro = libroRepository.findById(libroCompra.getId_libro())
 	                .orElseThrow(() -> new RuntimeException("Libro no encontrado: " + libroCompra.getId_libro()));
 
+	        // Verificar estado del libro
+	        if (libro.getEstado() == Estados_Libro.AGOTADO) {
+	            throw new RuntimeException("El libro '" + libro.getTitulo() + "' está agotado");
+	        }
+
+	        // Verificar stock
 	        if (libro.getStock() < libroCompra.getCantidad()) {
 	            throw new RuntimeException("Stock insuficiente para el libro: " + libro.getTitulo());
 	        }
 
+	        // Crear detalle de venta
 	        VentaDetalle detalle = new VentaDetalle();
 	        detalle.setLibro(libro);
 	        detalle.setVenta(venta);
@@ -81,7 +92,7 @@ public class VentaService {
 	        detalle.setSubtotal(libro.getPrecio().multiply(BigDecimal.valueOf(libroCompra.getCantidad())));
 	        detalleRepository.save(detalle);
 
-	        // Actualizar stock
+	        // Actualizar stock del libro
 	        libro.setStock(libro.getStock() - libroCompra.getCantidad());
 	        libroRepository.save(libro);
 
@@ -96,7 +107,7 @@ public class VentaService {
 	    venta.setIgv(igv);
 	    venta.setTotal(total);
 
-	    // Guardar la venta actualizada
+	    // Guardar la venta actualizada con subtotal, IGV y total
 	    return ventaRepository.save(venta);
 	}
 
