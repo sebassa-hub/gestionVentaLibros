@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Usuario | Sistema de Ventas</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Estilos Elegantes -->
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 100%;
+      max-width: 500px;
+      color: #ffffff;
+    }
+
+    .glass-card h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .form-control {
+      border-radius: 0.75rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+    }
+
+    .form-control::placeholder {
+      color: #ccc;
+    }
+
+    .form-control:focus {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      box-shadow: none;
+      border: 1px solid #80bdff;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.6rem 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .form-text a {
+      color: #0d6efd;
+      text-decoration: none;
+    }
+
+    .form-text a:hover {
+      text-decoration: underline;
+    }
+
+    .text-danger {
+      font-size: 0.875rem;
+    }
+
+    .alert {
+      border-radius: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glass-card">
+
+    <h2>Registro de Usuario</h2>
+
+    <!-- Mensaje de éxito -->
+    <div th:if="${param.success}" class="alert alert-success" role="alert">
+      ¡Registro exitoso! Ahora puedes iniciar sesión.
+    </div>
+
+    <!-- Formulario -->
+    <form method="post" th:action="@{/register/save}" th:object="${usuario}" autocomplete="off">
+
+      <div class="mb-3">
+        <label for="nombres" class="form-label">Nombres</label>
+        <input type="text" id="nombres" th:field="*{nombres}" class="form-control" />
+        <p th:errors="*{nombres}" class="text-danger" th:if="${#fields.hasErrors('nombres')}"></p>
+      </div>
+
+      <div class="mb-3">
+        <label for="apellidos" class="form-label">Apellidos</label>
+        <input type="text" id="apellidos" th:field="*{apellidos}" class="form-control"  />
+        <p th:errors="*{apellidos}" class="text-danger" th:if="${#fields.hasErrors('apellidos')}"></p>
+      </div>
+
+      <div class="mb-3">
+        <label for="username" class="form-label">Usuario</label>
+        <input type="text" id="username" th:field="*{username}" class="form-control"  />
+        <p th:errors="*{username}" class="text-danger" th:if="${#fields.hasErrors('username')}"></p>
+      </div>
+
+      <div class="mb-4">
+        <label for="clave" class="form-label">Contraseña</label>
+        <input type="password" id="clave" th:field="*{clave}" class="form-control" placeholder="••••••••" />
+        <p th:errors="*{clave}" class="text-danger" th:if="${#fields.hasErrors('clave')}"></p>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Crear cuenta</button>
+      </div>
+
+      <div class="form-text mt-3 text-center">
+        ¿Ya tienes cuenta? <a th:href="@{/}">Inicia sesión</a>
+      </div>
+    </form>
+
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
