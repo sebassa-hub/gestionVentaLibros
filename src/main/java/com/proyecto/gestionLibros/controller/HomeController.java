@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public Map<String, Object> home() {
         Map<String, Object> info = new HashMap<>();
         info.put("mensaje", "📚 Bienvenido a la API de Gestión de Libros");
