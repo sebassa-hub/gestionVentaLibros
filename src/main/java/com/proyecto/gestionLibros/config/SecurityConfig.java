@@ -10,8 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.proyecto.gestionLibros.Service.CustomUserDetailsService;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 public class SecurityConfig {
 

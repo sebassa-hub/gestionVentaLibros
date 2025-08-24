@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.proyecto.gestionLibros.entity.Rol;
+import com.proyecto.gestionLibros.Service.UsuarioService;
 import com.proyecto.gestionLibros.entity.Usuario;
 import com.proyecto.gestionLibros.repository.UsuarioRepository;
-import com.proyecto.gestionLibros.Service.UsuarioService;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService{

@@ -4,7 +4,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 
-import com.proyecto.gestionLibros.DemoApplication;
 import com.proyecto.gestionLibros.GestionLibrosApplication;
 
 public class ServletInitializer extends SpringBootServletInitializer{
