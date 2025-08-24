@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.libro.demo.entity.Usuario;
-import com.libro.demo.service.RolService;
-import com.libro.demo.service.UsuarioService;
+import com.proyecto.gestionLibros.entity.Usuario;
+import com.proyecto.gestionLibros.Service.RolService;
+import com.proyecto.gestionLibros.Service.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 

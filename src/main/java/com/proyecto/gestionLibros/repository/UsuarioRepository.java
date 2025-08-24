@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.libro.demo.entity.Rol;
-import com.libro.demo.entity.Usuario;
+import com.proyecto.gestionLibros.entity.Rol;
+import com.proyecto.gestionLibros.entity.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{

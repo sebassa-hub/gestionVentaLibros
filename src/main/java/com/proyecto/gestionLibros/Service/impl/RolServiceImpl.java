@@ -1,13 +1,13 @@
-package com.proyecto.gestionLibros.service.impl;
+package com.proyecto.gestionLibros.Service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.libro.demo.entity.Rol;
-import com.libro.demo.repository.RolRepository;
-import com.libro.demo.service.RolService;
+import com.proyecto.gestionLibros.entity.Rol;
+import com.proyecto.gestionLibros.repository.RolRepository;
+import com.proyecto.gestionLibros.Service.RolService;
 
 @Service
 public class RolServiceImpl implements RolService{

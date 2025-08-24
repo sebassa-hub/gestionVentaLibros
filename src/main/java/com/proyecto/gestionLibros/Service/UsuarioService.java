@@ -1,8 +1,8 @@
-package com.proyecto.gestionLibros.service;
+package com.proyecto.gestionLibros.Service;
 
 import java.util.List;
 
-import com.libro.demo.entity.Usuario;
+import com.proyecto.gestionLibros.entity.Usuario;
 
 public interface UsuarioService {
 		public Usuario guardarUsuario(Usuario registroDTO);
