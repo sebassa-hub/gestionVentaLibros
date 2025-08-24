@@ -69,5 +69,92 @@ public class Libro implements Serializable{
 	@JsonBackReference
 	@OneToMany(mappedBy = "libro", cascade=CascadeType.ALL)
 	private List<VentaDetalle> detalles = new ArrayList<>();
+
+	public Long getId_libro() {
+		return id_libro;
+	}
+
+	public void setId_libro(Long id_libro) {
+		this.id_libro = id_libro;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public void setAutor(String autor) {
+		this.autor = autor;
+	}
+
+	public Editorial getEditorial() {
+		return editorial;
+	}
+
+	public void setEditorial(Editorial editorial) {
+		this.editorial = editorial;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public BigDecimal getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Estados_Libro getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estados_Libro estado) {
+		this.estado = estado;
+	}
+
+	public List<VentaDetalle> getDetalles() {
+		return detalles;
+	}
+
+	public void setDetalles(List<VentaDetalle> detalles) {
+		this.detalles = detalles;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+	
 	
 }

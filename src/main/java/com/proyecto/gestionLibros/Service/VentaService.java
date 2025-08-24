@@ -38,13 +38,6 @@ public class VentaService {
 		return ventaRepository.findAll();
 	}
 	
-	/*
-	public Venta guardar(Venta venta) {
-		return ventaRepository.save(venta);
-	}
-	*/
-	
-	
 	public Venta obtenerPorId(Long id) {
 		return ventaRepository.findById(id).orElse(null);
 	}

@@ -1,13 +1,13 @@
-package com.libro.demo.service.impl;
+package com.proyecto.gestionLibros.Service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.libro.demo.entity.Rol;
-import com.libro.demo.entity.Usuario;
-import com.libro.demo.repository.UsuarioRepository;
-import com.libro.demo.service.UsuarioService;
+import com.proyecto.gestionLibros.entity.Rol;
+import com.proyecto.gestionLibros.entity.Usuario;
+import com.proyecto.gestionLibros.repository.UsuarioRepository;
+import com.proyecto.gestionLibros.Service.UsuarioService;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService{

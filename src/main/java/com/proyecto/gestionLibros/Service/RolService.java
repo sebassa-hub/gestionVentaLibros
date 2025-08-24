@@ -1,8 +1,8 @@
-package com.libro.demo.service;
+package com.proyecto.gestionLibros.Service;
 
 import java.util.List;
 
-import com.libro.demo.entity.Rol;
+import com.proyecto.gestionLibros.entity.Rol;
 
 public interface RolService {
 	

@@ -76,6 +76,86 @@ public class Cliente {
 	@JsonBackReference
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Venta> ventas = new ArrayList<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public TipoDocumento_Cliente getTipoDocumento_Cliente() {
+		return tipoDocumento_Cliente;
+	}
+
+	public void setTipoDocumento_Cliente(TipoDocumento_Cliente tipoDocumento_Cliente) {
+		this.tipoDocumento_Cliente = tipoDocumento_Cliente;
+	}
+
+	public String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public TipoGenero_Cliente getTipoGenero_Cliente() {
+		return tipoGenero_Cliente;
+	}
+
+	public void setTipoGenero_Cliente(TipoGenero_Cliente tipoGenero_Cliente) {
+		this.tipoGenero_Cliente = tipoGenero_Cliente;
+	}
+
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public List<Venta> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(List<Venta> ventas) {
+		this.ventas = ventas;
+	}
 	
 	
 }

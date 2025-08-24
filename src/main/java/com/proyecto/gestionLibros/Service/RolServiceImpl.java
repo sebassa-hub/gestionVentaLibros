@@ -1,13 +1,13 @@
-package com.libro.demo.service.impl;
+package com.proyecto.gestionLibros.Service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.libro.demo.entity.Rol;
-import com.libro.demo.repository.RolRepository;
-import com.libro.demo.service.RolService;
+import com.proyecto.gestionLibros.entity.Rol;
+import com.proyecto.gestionLibros.repository.RolRepository;
+import com.proyecto.gestionLibros.Service.RolService;
 
 @Service
 public class RolServiceImpl implements RolService{
@@ -16,13 +16,11 @@ public class RolServiceImpl implements RolService{
 
 	@Override
 	public List<Rol> listarTodosRol() {
-		// TODO Auto-generated method stub
 		return rolRepository.findAll();
 	}
 
 	@Override
 	public Rol buscarById(Integer id) {
-		// TODO Auto-generated method stub
 		return rolRepository.findById(id).get();
 	}
 
