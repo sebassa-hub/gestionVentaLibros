@@ -2,54 +2,55 @@ package com.proyecto.gestionLibros.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.proyecto.gestionLibros.Service.CustomUserDetailsService;
+
 import static org.springframework.security.config.Customizer.withDefaults;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-
-
 
 @Configuration
 public class SecurityConfig {
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-		
-		http
-        .csrf(csrf -> csrf.disable()) // Para pruebas con Postman
-        .cors(withDefaults())
-        .authorizeHttpRequests(auth -> auth
-            .anyRequest().permitAll() // Protege todas las rutas
-            
-            /*.anyRequest().authenticated()*/
-            
-        )
-        .formLogin(withDefaults()) // Usa login.html si está en templates
-        .httpBasic(withDefaults());  // Para Postman (Basic Auth)
-    return http.build();
-		
-	}
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
-    // Usuario en memoria para pruebas (admin/clave1234)
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User.withUsername("admin")
-                .password("{noop}clave1234") // {noop} = sin codificación
-                .roles("admin")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }
-	
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                // Rutas públicas
+                .requestMatchers("/login", "/register", "/register/save").permitAll()
+                // Todo lo demás requiere autenticación
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")                  // carga tu login.html
+                .loginProcessingUrl("/login")         // Spring Security procesa POST /login
+                .usernameParameter("username")        // coincide con tu form field
+                .passwordParameter("clave")           // coincide con tu form field
+                .defaultSuccessUrl("/usuario", true)  // redirige al listado de usuarios
+                .failureUrl("/login?error=true")      // redirige con parámetro en caso de error
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/cerrar")                 // coincide con tu UsuarioController
+                .logoutSuccessUrl("/login?logout=true") // mensaje de logout
+                .permitAll()
+            );
 
-	    // Necesario si quieres usar AuthenticationManager
-	    @Bean
-	    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-	        return config.getAuthenticationManager();
-	    }
-	
+        return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                   .userDetailsService(customUserDetailsService)
+                   .and()
+                   .build();
+    }
 }
