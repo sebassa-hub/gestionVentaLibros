@@ -1,4 +1,4 @@
-package com.libro.demo.controller;
+package com.proyecto.gestionLibros.controller;
 
 import java.util.HashMap;
 import java.util.Map;

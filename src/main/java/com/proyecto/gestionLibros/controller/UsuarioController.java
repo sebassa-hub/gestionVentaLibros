@@ -1,4 +1,4 @@
-package com.libro.demo.controller;
+package com.proyecto.gestionLibros.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

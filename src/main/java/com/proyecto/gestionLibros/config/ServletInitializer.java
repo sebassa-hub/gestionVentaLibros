@@ -1,4 +1,4 @@
-package com.libro.demo;
+package com.proyecto.gestionLibros.config;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

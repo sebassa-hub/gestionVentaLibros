@@ -1,4 +1,4 @@
-package com.libro.demo.service;
+package com.proyecto.gestionLibros.service;
 
 import java.util.List;
 
