@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.proyecto.gestionLibros.enums.Estados_Libro;
 
 import jakarta.persistence.CascadeType;
@@ -65,6 +66,7 @@ public class Libro implements Serializable{
 	@Column(name="estado")
 	private Estados_Libro estado;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "libro", cascade=CascadeType.ALL)
 	private List<VentaDetalle> detalles = new ArrayList<>();
 	

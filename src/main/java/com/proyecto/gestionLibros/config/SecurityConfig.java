@@ -22,8 +22,12 @@ public class SecurityConfig {
 		
 		http
         .csrf(csrf -> csrf.disable()) // Para pruebas con Postman
+        .cors(withDefaults())
         .authorizeHttpRequests(auth -> auth
-            .anyRequest().authenticated() // Protege todas las rutas
+            .anyRequest().permitAll() // Protege todas las rutas
+            
+            /*.anyRequest().authenticated()*/
+            
         )
         .formLogin(withDefaults()) // Usa login.html si está en templates
         .httpBasic(withDefaults());  // Para Postman (Basic Auth)

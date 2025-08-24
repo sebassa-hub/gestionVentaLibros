@@ -3,6 +3,8 @@ package com.proyecto.gestionLibros.entity;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +41,7 @@ public class VentaDetalle {
 	
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "id_Venta", nullable=false)
 	private Venta venta;
 	

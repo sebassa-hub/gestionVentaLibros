@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.proyecto.gestionLibros.enums.TipoDocumento_Cliente;
 import com.proyecto.gestionLibros.enums.TipoGenero_Cliente;
 
@@ -72,7 +73,7 @@ public class Cliente {
 	@Column(name = "correo_Cliente", nullable=false)
 	private String correo;
 
-	
+	@JsonBackReference
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Venta> ventas = new ArrayList<>();
 	
