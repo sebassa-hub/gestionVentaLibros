@@ -20,6 +20,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -70,91 +71,18 @@ public class Libro implements Serializable{
 	@OneToMany(mappedBy = "libro", cascade=CascadeType.ALL)
 	private List<VentaDetalle> detalles = new ArrayList<>();
 
-	public Long getId_libro() {
-		return id_libro;
+	@Column(name="image_url")
+	private String imageUrl;
+
+	@Version
+	private Integer version;
+
+	public void reducirStock(int cant) {
+  	this.stock -= cant;
+  	if (this.stock <= 0) {
+  	  this.stock = 0;
+  	  this.estado = com.proyecto.gestionLibros.enums.Estados_Libro.AGOTADO;
+  	  }
 	}
 
-	public void setId_libro(Long id_libro) {
-		this.id_libro = id_libro;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getAutor() {
-		return autor;
-	}
-
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-
-	public Editorial getEditorial() {
-		return editorial;
-	}
-
-	public void setEditorial(Editorial editorial) {
-		this.editorial = editorial;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public BigDecimal getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(BigDecimal precio) {
-		this.precio = precio;
-	}
-
-	public int getStock() {
-		return stock;
-	}
-
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public Estados_Libro getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estados_Libro estado) {
-		this.estado = estado;
-	}
-
-	public List<VentaDetalle> getDetalles() {
-		return detalles;
-	}
-
-	public void setDetalles(List<VentaDetalle> detalles) {
-		this.detalles = detalles;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
-	
-	
 }

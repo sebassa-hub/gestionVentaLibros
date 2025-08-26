@@ -28,4 +28,8 @@ public class CategoriaService {
 	public Categoria actualizar(Categoria categoria) {
 		return categoriaRepo.save(categoria);
 	}
+
+    public void eliminar(Long id) {
+        categoriaRepo.deleteById(id);
+    }
 }

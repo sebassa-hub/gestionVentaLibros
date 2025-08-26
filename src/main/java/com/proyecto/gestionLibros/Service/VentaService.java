@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.proyecto.gestionLibros.dto.VentaRequest;
 import com.proyecto.gestionLibros.entity.Cliente;
 import com.proyecto.gestionLibros.entity.Libro;
+import com.proyecto.gestionLibros.entity.ShoppingCart;
 import com.proyecto.gestionLibros.entity.Venta;
 import com.proyecto.gestionLibros.entity.VentaDetalle;
 import com.proyecto.gestionLibros.enums.Estados_Libro;
@@ -103,6 +104,18 @@ public class VentaService {
 	    // Guardar la venta actualizada con subtotal, IGV y total
 	    return ventaRepository.save(venta);
 	}
+
+    public Venta createFromCart(ShoppingCart cart) {
+        var request = new com.proyecto.gestionLibros.dto.VentaRequest();
+    request.setClienteId(cart.getUser().getCliente()!=null ? cart.getUser().getCliente().getId() : null);
+    var libros = new java.util.ArrayList<com.proyecto.gestionLibros.dto.VentaRequest.LibroCompra>();
+    for (var item : cart.getItems()){
+      var lc = new com.proyecto.gestionLibros.dto.VentaRequest.LibroCompra(item.getLibro().getId_libro(), item.getCantidad());
+      libros.add(lc);
+    }
+    request.setLibros(libros);
+    return this.comprar(request);
+    }
 
 	
 	

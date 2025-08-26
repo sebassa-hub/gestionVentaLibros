@@ -29,4 +29,8 @@ public class EditorialService {
 	public Editorial actualizar(Editorial editorial) {
 		return editorialRepo.save(editorial);
 	}
+
+    public void eliminar(Long id) {
+        editorialRepo.deleteById(id);
+    }
 }

@@ -22,6 +22,10 @@ public class LibroService {
 	
 	//guardar los libros
 	public Libro guardar(Libro libro) {
+	   if (libro.getAutor() == null || libro.getAutor().isBlank()) {
+       libro.setAutor("Desconocido");
+	}
+
 		return libroRepo.save(libro);
 	}
 	
@@ -33,5 +37,9 @@ public class LibroService {
 	//Actualizar
 	public Libro actualizar(Libro libro) {
 		return libroRepo.save(libro);
+	}
+
+	public void eliminar(Long id) {
+		libroRepo.deleteById(id);
 	}
 }
