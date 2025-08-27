@@ -29,6 +29,10 @@ public class SecurityConfig {
       .sessionManagement(sm -> sm.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(auth -> auth
           .requestMatchers("/api/auth/**", "/home", "/uploads/**").permitAll()
+          .requestMatchers("/api/editoriales", "/api/editoriales/**").permitAll()
+          .requestMatchers("/api/categorias", "/api/categorias/**").permitAll()
+          .requestMatchers("/api/libros", "/api/libros/**").permitAll()
+          .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
           .requestMatchers("/api/admin/**").hasRole("ADMIN")
           .anyRequest().authenticated()
       )

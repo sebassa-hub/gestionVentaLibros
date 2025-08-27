@@ -28,33 +28,40 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest req) {
-    if (users.existsByUsername(req.username()) || users.existsByEmail(req.email()))
-      return ResponseEntity.badRequest().body(Map.of("error","Usuario o email ya existe"));
+public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest req) {
+  if (users.existsByUsername(req.username()) || users.existsByEmail(req.email()))
+    return ResponseEntity.badRequest().body(Map.of("error","Usuario o email ya existe"));
 
-    var user = User.builder()
-        .username(req.username())
-        .email(req.email())
-        .password(encoder.encode(req.password()))
-        .roles(Set.of(Role.CLIENTE))
-        .enabled(true)
-        .build();
-    users.save(user);
-    String token = jwt.generate(user.getUsername(), Map.of("roles", user.getRoles()));
-    return ResponseEntity.ok(new AuthResponse(token));
-  }
+  var user = User.builder()
+      .username(req.username())
+      .email(req.email())
+      .password(encoder.encode(req.password()))
+      .roles(Set.of(Role.CLIENTE))
+      .enabled(true)
+      .build();
+  users.save(user);
+
+  String token = jwt.generate(user.getUsername(), Map.of("roles", user.getRoles()));
+
+  return ResponseEntity.ok(new AuthResponse(token, user.getUsername(), user.getRoles()));
+}
+
 
   @PostMapping("/login")
-  public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest req) {
-    var tokenReq = new UsernamePasswordAuthenticationToken(req.usernameOrEmail(), req.password());
-    authManager.authenticate(tokenReq); // lanza excepción si falla
-    // permitir login con email o username
-    var username = users.findByUsername(req.usernameOrEmail())
-        .or(() -> users.findByUsername(users.findAll().stream()
+public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest req) {
+  var tokenReq = new UsernamePasswordAuthenticationToken(req.usernameOrEmail(), req.password());
+  authManager.authenticate(tokenReq); // lanza excepción si falla
+
+  var user = users.findByUsername(req.usernameOrEmail())
+      .or(() -> users.findAll().stream()
           .filter(u -> u.getEmail().equalsIgnoreCase(req.usernameOrEmail()))
-          .map(User::getUsername).findFirst().orElse("___nope___")))
-        .map(User::getUsername).orElseThrow();
-    String token = jwt.generate(username, Map.of("roles",""));
-    return ResponseEntity.ok(new AuthResponse(token));
-  }
+          .findFirst())
+      .orElseThrow();
+
+  String token = jwt.generate(user.getUsername(), Map.of("roles", user.getRoles()));
+
+  return ResponseEntity.ok(new AuthResponse(token, user.getUsername(), user.getRoles()));
+}
+
+
 }
